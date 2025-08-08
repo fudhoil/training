@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/owl/static/src/services/odoo_services.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

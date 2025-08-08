@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl.OdooServices">
+        <t t-set="dark_class" t-value="dark_theme ? 'bg-dark text-white' : ''"/>
+        <div t-attf-class="o_content {{ dark_class }}">
+            <div class="p-3">
+                <button id="btn_notification" class="btn btn-primary">Notification</button>
+                <button id="btn_dialog" class="btn btn-primary ms-2">Dialog</button>
+                <button id="btn_effect" class="btn btn-primary ms-2">Effect</button>
+                <button id="btn_cookie" class="btn btn-primary ms-2">Cookie</button>
+                <button id="btn_http_get" class="btn btn-primary ms-2">HTTP Get</button>
+                <button id="btn_http_post" class="btn btn-primary ms-2">HTTP Post</button>
+                <button id="btn_rpc" class="btn btn-primary ms-2">RPC</button>
+                <button id="btn_orm" class="btn btn-primary ms-2">ORM</button>
+                <button id="btn_action" class="btn btn-primary ms-2">Action</button>
+                <button id="btn_router" class="btn btn-primary ms-2">Router</button>
+                <button id="btn_user" class="btn btn-primary ms-2">User</button>
+                <button id="btn_company" class="btn btn-primary ms-2">Company</button>
+
+                <div class="mt-4" id="output_user"></div>
+                <div id="output_company"></div>
+            </div>
+        </div>
+    </t>
+</templates>
