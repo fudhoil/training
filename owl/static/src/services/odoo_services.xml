@@ -11,14 +11,13 @@
                 <button id="btn_http_get" class="btn btn-primary ms-2">HTTP Get</button>
                 <button id="btn_http_post" class="btn btn-primary ms-2">HTTP Post</button>
                 <button id="btn_rpc" class="btn btn-primary ms-2">RPC</button>
-                <button id="btn_orm" class="btn btn-primary ms-2">ORM</button>
                 <button id="btn_action" class="btn btn-primary ms-2">Action</button>
                 <button id="btn_router" class="btn btn-primary ms-2">Router</button>
                 <button id="btn_user" class="btn btn-primary ms-2">User</button>
                 <button id="btn_company" class="btn btn-primary ms-2">Company</button>
 
-                <div class="mt-4" id="output_user"></div>
-                <div id="output_company"></div>
+                <div class="mt-4"><t t-esc="JSON.stringify(output_data)"/></div>
+                
             </div>
         </div>
     </t>

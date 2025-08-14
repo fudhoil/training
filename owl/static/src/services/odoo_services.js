@@ -24,7 +24,6 @@ odoo.define('owl.odoo_services', function (require) {
             'click #btn_http_get': 'getHttpService',
             'click #btn_http_post': 'postHttpService',
             'click #btn_rpc': 'getRpcService',
-            'click #btn_orm': 'getOrmService',
             'click #btn_action': 'getActionService',
             'click #btn_router': 'getRouterService',
             'click #btn_user': 'getUserService',
@@ -35,13 +34,7 @@ odoo.define('owl.odoo_services', function (require) {
             this._super(parent, action);
             this.state = {
                 dark_theme: false,
-                get_http_data: [],
-                post_http_data: [],
-                rpc_data: [],
-                orm_data: [],
-                user_data: '',
-                company_data: '',
-                bg_success: '0',
+                output_data: '',
                 container_class: '',
             };
         },
@@ -113,17 +106,18 @@ odoo.define('owl.odoo_services', function (require) {
         getHttpService: function () {
             ajax.jsonRpc('/owl/get_products', 'call', {})
                 .then(response => {
-                    this.state.get_http_data = response;
+                    this.state.output_data = response;
                     this.renderElement();
                 });
         },
 
         postHttpService: function () {
-            ajax.jsonRpc('/owl/post_product', 'call', { title: "BMW Pencil" })
-                .then(response => {
-                    this.state.post_http_data = response;
-                    this.renderElement();
-                });
+            ajax.jsonRpc('/owl/post_product', 'call', { 
+                title: "BMW Pencil" 
+            }).then(response => {
+                this.state.output_data = response;
+                this.renderElement();
+            });
         },
 
         getRpcService: function () {
@@ -133,34 +127,33 @@ odoo.define('owl.odoo_services', function (require) {
                 args: [[], ['name', 'email']],
                 kwargs: { limit: 5 },
             }).then(data => {
-                this.state.rpc_data = data;
-                this.renderElement();
-            });
-        },
-
-        getOrmService: function () {
-            rpc.query({
-                model: 'res.partner',
-                method: 'search_read',
-                args: [[], ['name', 'email']],
-            }).then(data => {
-                this.state.orm_data = data;
+                this.state.output_data = data;
                 this.renderElement();
             });
         },
 
         getUserService: function () {
-            this.state.user_data = session.uid;
+            this.state.output_data = session.uid;
             this.renderElement();
         },
 
         getCompanyService: function () {
-            this.state.company_data = session.company_id;
+            this.state.output_data = session.company_id;
             this.renderElement();
         },
 
         getRouterService: function () {
-            this.do_action("base.action_res_users");
+            const [base, hash] = window.location.href.split('#');
+            const url = new URL(base, window.location.origin);
+        
+            const currentDebug = url.searchParams.get('debug');
+            if (currentDebug === '1') {
+                url.searchParams.delete('debug');
+            } else {
+                url.searchParams.set('debug', '1');
+            }
+        
+            window.location.href = url.pathname + url.search + (hash ? '#' + hash : '');
         },
 
         getActionService: function () {
