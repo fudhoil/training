@@ -7,6 +7,7 @@ odoo.define('owl.odoo_services', function (require) {
     const rpc = require('web.rpc');
     const Dialog = require('web.Dialog');
     const Notification = require('web.Notification');
+    const Framework = require('web.framework');
     const ajax = require('web.ajax');
 
     const qweb = core.qweb;
@@ -17,9 +18,7 @@ odoo.define('owl.odoo_services', function (require) {
         events: _.extend({}, AbstractAction.prototype.events, {
             'click #btn_notification': 'showNotification',
             'click #btn_dialog': 'showDialog',
-            'click #btn_effect': function () {
-                this.do_notify("Effect", "This is a rainbow effect", true);
-            },
+            'click #btn_effect': 'showEffect',
             'click #btn_cookie': 'setCookieService',
             'click #btn_http_get': 'getHttpService',
             'click #btn_http_post': 'postHttpService',
@@ -94,7 +93,10 @@ odoo.define('owl.odoo_services', function (require) {
         },
 
         showEffect: function () {
-            this.do_notify("Effect", "This is a rainbow effect", true);
+            Framework.blockUI();
+            setTimeout(() => {
+                Framework.unblockUI();
+            }, 2000);
         },
 
         setCookieService: function () {
