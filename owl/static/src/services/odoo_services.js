@@ -9,6 +9,10 @@ odoo.define('owl.odoo_services', function (require) {
     const Notification = require('web.Notification');
     const Framework = require('web.framework');
     const ajax = require('web.ajax');
+    const {
+        set_cookie,
+        get_cookie,
+    } = require('web.utils');
 
     const qweb = core.qweb;
     const _t = core._t;
@@ -53,6 +57,7 @@ odoo.define('owl.odoo_services', function (require) {
 
             // Ensure state is always defined
             this.state = this.state || {};
+            this.state.dark_theme = get_cookie('dark_theme') === 'true';
 
             // Safely assign container_class
             this.state.container_class = 'o_content' + (this.state.dark_theme ? ' bg-dark text-white' : '');
@@ -100,8 +105,8 @@ odoo.define('owl.odoo_services', function (require) {
         },
 
         setCookieService: function () {
-            this.state.dark_theme = !this.state.dark_theme;
-            document.cookie = `dark_theme=${this.state.dark_theme}; path=/; max-age=31536000`;
+            const darkTheme = !this.state.dark_theme;
+            set_cookie('dark_theme', darkTheme);
             this.renderElement();
         },
 
