@@ -76,7 +76,7 @@ odoo.define('owl.odoo_services', function (require) {
                 title: _t("Notification"),
                 message: _t("This is a sample notification."),
                 type: 'info',
-            }).appendTo(this.$el);
+            }).appendTo(this.$('.o_content'));
         },
 
         showDialog: function () {
