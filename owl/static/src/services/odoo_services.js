@@ -18,7 +18,7 @@ odoo.define('owl.odoo_services', function (require) {
     const _t = core._t;
 
     const OdooServices = AbstractAction.extend({
-        template: 'owl.OdooServices',
+        template: 'parent_template',
         events: _.extend({}, AbstractAction.prototype.events, {
             'click #btn_notification': 'showNotification',
             'click #btn_dialog': 'showDialog',
@@ -62,7 +62,7 @@ odoo.define('owl.odoo_services', function (require) {
             // Safely assign container_class
             this.state.container_class = 'o_content' + (this.state.dark_theme ? ' bg-dark text-white' : '');
 
-            const html = qweb.render('owl.OdooServices', {
+            const html = qweb.render('parent_template', {
                 ...this.state,
                 widget: this,
             });
@@ -115,7 +115,10 @@ odoo.define('owl.odoo_services', function (require) {
             Framework.blockUI();
             ajax.jsonRpc('/owl/get_products', 'call', {})
                 .then(response => {
-                    this.state.output_data = response;
+                    this.state.output_data = {
+                        label: 'HTTP GET Products',
+                        value: response
+                    };
                     this.renderElement();
                 })
                 .finally(() => {
@@ -130,7 +133,10 @@ odoo.define('owl.odoo_services', function (require) {
                 title: "BMW Pencil" 
             })
             .then(response => {
-                this.state.output_data = response;
+                this.state.output_data = {
+                    label: 'HTTP POST Product',
+                    value: response
+                };
                 this.renderElement();
             })
             .finally(() => {
@@ -148,7 +154,10 @@ odoo.define('owl.odoo_services', function (require) {
                 kwargs: { limit: 5 },
             })
             .then(data => {
-                this.state.output_data = data;
+                this.state.output_data = {
+                    label: 'RPC Partners',
+                    value: data
+                };
                 this.renderElement();
             })
             .finally(() => {
@@ -157,12 +166,18 @@ odoo.define('owl.odoo_services', function (require) {
         },
 
         getUserService: function () {
-            this.state.output_data = session.uid;
+            this.state.output_data = {
+                label: 'ID User',
+                value: session.uid
+            };
             this.renderElement();
         },
 
         getCompanyService: function () {
-            this.state.output_data = session.company_id;
+            this.state.output_data = {
+                label: 'ID Company',
+                value: session.company_id
+            };
             this.renderElement();
         },
 

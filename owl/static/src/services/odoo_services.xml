@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <t t-name="owl.OdooServices">
+    <t t-name="parent_template">
         <t t-set="dark_class" t-value="dark_theme ? 'bg-dark text-white' : ''"/>
         <div t-attf-class="o_content {{ dark_class }}" style="display: flex; flex-direction: column; height: 100%;">
             <div class="p-3">
@@ -16,7 +16,23 @@
                 <button id="btn_user" class="btn btn-primary ms-2">User</button>
                 <button id="btn_company" class="btn btn-primary ms-2">Company</button>
 
-                <div class="mt-4"><t t-esc="JSON.stringify(output_data)"/></div>
+                <div class="mt-4">
+                    <t t-if="output_data">
+                        <t t-if="output_data.label">
+                            <span t-esc="output_data.label"/>
+                            <span> = </span>
+                            <span t-if="typeof output_data.value === 'object'">
+                                <pre style="display:inline;white-space:pre-wrap;word-break:break-all;"> <t t-esc="JSON.stringify(output_data.value, null, 2)"/></pre>
+                            </span>
+                            <span t-else="">
+                                <t t-esc="output_data.value"/>
+                            </span>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="output_data"/>
+                        </t>
+                    </t>
+                </div>
                 
             </div>
         </div>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name' : 'OWL',
-    'version' : '2.0',
+    'version' : '2.1',
     'summary': 'OWL',
     'description': """OWL""",
     'category': 'OWL',
