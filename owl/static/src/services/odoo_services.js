@@ -97,11 +97,11 @@ odoo.define('owl.odoo_services', function (require) {
             }).open();
         },
 
-        showEffect: function () {
+        showEffect: function (duration=2000) {
             Framework.blockUI();
             setTimeout(() => {
                 Framework.unblockUI();
-            }, 2000);
+            }, duration);
         },
 
         setCookieService: function () {
@@ -110,32 +110,49 @@ odoo.define('owl.odoo_services', function (require) {
             this.renderElement();
         },
 
+
         getHttpService: function () {
+            Framework.blockUI();
             ajax.jsonRpc('/owl/get_products', 'call', {})
                 .then(response => {
                     this.state.output_data = response;
                     this.renderElement();
+                })
+                .finally(() => {
+                    Framework.unblockUI();
                 });
         },
 
+
         postHttpService: function () {
+            Framework.blockUI();
             ajax.jsonRpc('/owl/post_product', 'call', { 
                 title: "BMW Pencil" 
-            }).then(response => {
+            })
+            .then(response => {
                 this.state.output_data = response;
                 this.renderElement();
+            })
+            .finally(() => {
+                Framework.unblockUI();
             });
         },
 
+
         getRpcService: function () {
+            Framework.blockUI();
             rpc.query({
                 model: 'res.partner',
                 method: 'search_read',
                 args: [[], ['name', 'email']],
                 kwargs: { limit: 5 },
-            }).then(data => {
+            })
+            .then(data => {
                 this.state.output_data = data;
                 this.renderElement();
+            })
+            .finally(() => {
+                Framework.unblockUI();
             });
         },
 
