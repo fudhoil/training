@@ -12,7 +12,9 @@ odoo.define('owl.odoo_services', function (require) {
     const {
         set_cookie,
         get_cookie,
+        is_email
     } = require('web.utils');
+    const { debounce } = owl.utils;
 
     const qweb = core.qweb;
     const _t = core._t;
@@ -31,6 +33,7 @@ odoo.define('owl.odoo_services', function (require) {
             'click #btn_router': 'getRouterService',
             'click #btn_user': 'getUserService',
             'click #btn_company': 'getCompanyService',
+            'keyup #email_input': 'onEmailInputKeyup'
         }),
 
         init: function (parent, action) {
@@ -71,6 +74,22 @@ odoo.define('owl.odoo_services', function (require) {
             this.$el.empty().append($content);
         },
 
+        onEmailInputKeyup: debounce(function () {
+            const email = this.$('#email_input').val();
+            if (is_email(email)) {
+                this.state.output_data = {
+                    label: 'Valid Email',
+                    value: email
+                };
+            } else {
+                this.state.output_data = {
+                    label: 'Invalid Email',
+                    value: email
+                };
+            }
+            this.renderElement();
+        }, 500),
+
         showNotification: function () {
             new Notification(this, {
                 title: _t("Notification"),
@@ -109,7 +128,6 @@ odoo.define('owl.odoo_services', function (require) {
             set_cookie('dark_theme', darkTheme);
             this.renderElement();
         },
-
 
         getHttpService: function () {
             Framework.blockUI();

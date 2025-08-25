@@ -15,6 +15,7 @@
                 <button id="btn_router" class="btn btn-primary ms-2">Router</button>
                 <button id="btn_user" class="btn btn-primary ms-2">User</button>
                 <button id="btn_company" class="btn btn-primary ms-2">Company</button>
+                <input type="text" id="email_input" class="form-control mt-2" placeholder="Enter email"/>
 
                 <div class="mt-4">
                     <t t-if="output_data">
