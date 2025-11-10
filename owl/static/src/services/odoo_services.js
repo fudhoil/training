@@ -116,11 +116,11 @@ odoo.define('owl.odoo_services', function (require) {
             }).open();
         },
 
-        showEffect: function (duration) {
+        showEffect: function () {
             Framework.blockUI();
             setTimeout(() => {
                 Framework.unblockUI();
-            }, duration || 2000);
+            }, 2000);
         },
 
         setCookieService: function () {
